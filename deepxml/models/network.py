@@ -162,10 +162,6 @@ class DeepXMLf(DeepXMLBase):
 
         self.representation_dims = params.embedding_dims
         super(DeepXMLf, self).__init__(trans_config_coarse)
-        if params.freeze_intermediate:
-            print("Freezing intermediate model parameters!")
-            for params in self.transform.parameters():
-                params.requires_grad = False
 
         trans_config_fine = {
             "order": ["residual"],
@@ -176,8 +172,12 @@ class DeepXMLf(DeepXMLBase):
                 "init": "eye"
             }
         }
-        self.transform_fine = self._construct_transform(
-            trans_config_fine)
+        self.transform_fine = self._construct_transform(trans_config_fine)
+
+        if params.freeze_intermediate:
+            print("Freezing intermediate model parameters!")
+            for params in self.transform.parameters():
+                params.requires_grad = False
 
     def encode_fine(self, x):
         """Forward pass (assumes input is coarse computation)
@@ -321,10 +321,6 @@ class DeepXMLs(DeepXMLBase):
 
         self.representation_dims = params.embedding_dims
         super(DeepXMLs, self).__init__(trans_config_coarse)
-        if params.freeze_intermediate:
-            print("Freezing intermediate model parameters!")
-            for params in self.transform.parameters():
-                params.requires_grad = False
 
         trans_config_fine = {
             "order": ["residual"],
@@ -335,8 +331,12 @@ class DeepXMLs(DeepXMLBase):
                 "init": "eye"
             }
         }
-        self.transform_fine = self._construct_transform(
-            trans_config_fine)
+        self.transform_fine = self._construct_transform(trans_config_fine)
+
+        if params.freeze_intermediate:
+            print("Freezing intermediate model parameters!")
+            for params in self.transform.parameters():
+                params.requires_grad = False
 
     def save_intermediate_model(self, fname):
         torch.save(self.transform.state_dict(), fname)
