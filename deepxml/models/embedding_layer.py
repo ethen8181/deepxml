@@ -69,6 +69,9 @@ class Embedding(torch.nn.Module):
         else:
             return NotImplementedError(f"Unknown reduction: {reduction}")
 
+    def to(self):
+        super().to(self.device)
+
     def reset_parameters(self):
         """
             Reset weights
