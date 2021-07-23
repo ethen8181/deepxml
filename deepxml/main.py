@@ -7,14 +7,14 @@ import _pickle as pickle
 import torch
 import torch.utils.data
 from pathlib import Path
-import libs.utils as utils
-import models.network as network
-import libs.shortlist as shortlist
-import libs.model as model_utils
-import libs.optimizer as optimizer
-import libs.parameters as parameters
-import libs.sampling as sampling
-import libs.loss as loss
+import deepxml.libs.utils as utils
+import deepxml.models.network as network
+import deepxml.libs.shortlist as shortlist
+import deepxml.libs.model as model_utils
+import deepxml.libs.optimizer as optimizer
+import deepxml.libs.parameters as parameters
+import deepxml.libs.sampling as sampling
+import deepxml.libs.loss as loss
 
 
 __author__ = 'KD'

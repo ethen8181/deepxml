@@ -78,9 +78,6 @@ class Embedding(torch.nn.Module):
         if self.padding_idx is not None:
             self.weight.data[self.padding_idx].fill_(0)
 
-    def to(self):
-        super().to(self.device)
-
     def _reduce_sum(self, x, w):
         if w is None:
             return torch.sum(x, dim=1)

@@ -1,4 +1,4 @@
-from libs.parameters_base import ParametersBase
+from deepxml.libs.parameters_base import ParametersBase
 
 
 class Parameters(ParametersBase):

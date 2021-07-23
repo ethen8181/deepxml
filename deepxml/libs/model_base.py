@@ -10,7 +10,7 @@ from torch.utils.data import DataLoader
 import numpy as np
 import xclib.evaluation.xc_metrics as xc_metrics
 import sys
-import libs.utils as utils
+import deepxml.libs.utils as utils
 from .dataset import construct_dataset
 from .collate_fn import construct_collate_fn
 from .tracking import Tracking

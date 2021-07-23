@@ -3,8 +3,8 @@ import torch.nn as nn
 import numpy as np
 import math
 import os
-import models.transform_layer as transform_layer
-import models.linear_layer as linear_layer
+import deepxml.models.transform_layer as transform_layer
+import deepxml.models.linear_layer as linear_layer
 
 
 __author__ = 'KD'
@@ -149,17 +149,33 @@ class DeepXMLf(DeepXMLBase):
     def __init__(self, params):
         self.num_labels = params.num_labels
         self.num_clf_partitions = params.num_clf_partitions
-        transform_config_dict = transform_layer.fetch_json(
-            params.arch, params)
-        trans_config_coarse = transform_config_dict['transform_coarse']
-        self.representation_dims = int(
-            transform_config_dict['representation_dims'])
+
+        trans_config_coarse = {
+            "order": ["astec"],
+            "astec": {
+                "vocabulary_dims": params.vocabulary_dims,
+                "embedding_dims": params.embedding_dims,
+                "freeze": params.freeze_intermediate,
+                "dropout": 0.5
+            }
+        }
+
+        self.representation_dims = params.embedding_dims
         super(DeepXMLf, self).__init__(trans_config_coarse)
         if params.freeze_intermediate:
             print("Freezing intermediate model parameters!")
             for params in self.transform.parameters():
                 params.requires_grad = False
-        trans_config_fine = transform_config_dict['transform_fine']
+
+        trans_config_fine = {
+            "order": ["residual"],
+            "residual": {
+                "input_size": params.embedding_dims,
+                "output_size": params.embedding_dims,
+                "dropout": 0.5,
+                "init": "eye"
+            }
+        }
         self.transform_fine = self._construct_transform(
             trans_config_fine)
 

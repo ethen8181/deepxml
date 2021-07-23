@@ -1,12 +1,12 @@
-import libs.parameters as parameters
+import deepxml.libs.parameters as parameters
 import json
 import sys
 import os
-import tools.surrogate_mapping as surrogate_mapping
-from main import main
+import deepxml.tools.surrogate_mapping as surrogate_mapping
+from deepxml.main import main
 import shutil
-import tools.evaluate as evalaute_one
-import tools.evaluate_ensemble as evaluate_ens
+import deepxml.tools.evaluate as evalaute_one
+import deepxml.tools.evaluate_ensemble as evaluate_ens
 
 
 def create_surrogate_mapping(data_dir, g_config, seed):
