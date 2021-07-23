@@ -69,9 +69,6 @@ class Embedding(torch.nn.Module):
         else:
             return NotImplementedError(f"Unknown reduction: {reduction}")
 
-    def to(self):
-        super().to(self.device)
-
     def reset_parameters(self):
         """
             Reset weights
@@ -80,6 +77,9 @@ class Embedding(torch.nn.Module):
             self.weight.data, gain=torch.nn.init.calculate_gain('relu'))
         if self.padding_idx is not None:
             self.weight.data[self.padding_idx].fill_(0)
+
+    def to(self):
+        super().to(self.device)
 
     def _reduce_sum(self, x, w):
         if w is None:
