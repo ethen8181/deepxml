@@ -1,5 +1,5 @@
 import torch.nn as nn
-import models.embedding_layer as embedding_layer
+import deepxml.models.embedding_layer as embedding_layer
 
 
 class Astec(nn.Module):

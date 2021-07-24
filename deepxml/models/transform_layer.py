@@ -1,8 +1,8 @@
 import sys
 import re
 import torch.nn as nn
-import models.residual_layer as residual_layer
-import models.astec as astec
+import deepxml.models.residual_layer as residual_layer
+import deepxml.models.astec as astec
 import json
 from collections import OrderedDict
 
@@ -97,29 +97,6 @@ class Transform(nn.Module):
         except AttributeError:
             _sparse = False
         return _sparse
-
-
-def resolve_schema_args(jfile, ARGS):
-    arguments = re.findall(r"#ARGS\.(.+?);", jfile)
-    for arg in arguments:
-        replace = '#ARGS.%s;' % (arg)
-        to = str(ARGS.__dict__[arg])
-        # Python True and False to json true & false
-        if to == 'True' or to == 'False':
-            to = to.lower()
-        if jfile.find('\"#ARGS.%s;\"' % (arg)) != -1:
-            replace = '\"#ARGS.%s;\"' % (arg)
-            if isinstance(ARGS.__dict__[arg], str):
-                to = str("\""+ARGS.__dict__[arg]+"\"")
-        jfile = jfile.replace(replace, to)
-    return jfile
-
-
-def fetch_json(file, ARGS):
-    with open(file, encoding='utf-8') as f:
-        file = ''.join(f.readlines())
-        schema = resolve_schema_args(file, ARGS)
-    return json.loads(schema)
 
 
 def get_functions(obj, params=None):

@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-import models.transform_layer as transform_layer
+import deepxml.models.transform_layer as transform_layer
 
 
 class Optimizer(object):
